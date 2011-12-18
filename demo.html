@@ -1,0 +1,107 @@
+﻿<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>aa</title>
+		<style>
+		.ct {
+			border:1px dotted #aaa;
+			margin:20px;
+			padding:20px;
+		}
+		pre{
+			background : #ccc;
+		}
+		</style>
+		<script src="SuperDate.js"></script>
+	</head>
+	<body id="bd"	name="filod">
+	关于TImeSpan对象的使用：
+	<div class="ct">
+		点击play all将开始倒计时所有的TimeSpan，并在回调内设置相应text的值
+		<br />
+		<input type="button" value="play all" onclick="playall()" />
+		<br />
+		ts1：<input type="text" value="" id='ts1' value="" />
+		<input type="button" value="stop" onclick="stopts1()" />
+		<br />
+		ts2：<input type="text" value="" id='ts2' />
+		<input type="button" value="stop" onclick="stopts2()" />
+		<br />
+		ts3：<input type="text" value="" id='ts3' />
+		<input type="button" value="stop" onclick="stopts3()" />
+		<br />
+		ts4：<input type="text" value="" id='ts4' />
+		<input type="button" value="stop" onclick="stopts4()" />
+		<br />
+		<input type="button" value="stopall" onclick="TimeSpan.stopAll()" />
+		<br />
+		在任何时间点击alert ts3可以看到倒计时对原始TimeSpan对象的破坏性更改
+		<br />
+		<input type="button" value="alert ts3" onclick="alert(ts3.toString())" />
+	</div>
+	
+		关于 date 的增强：
+	<div class="ct">
+		<br />
+		<pre>
+   var now = new Date();
+   var tomorrow = now.add(TS(1, 0, 0, 0, 0));
+   var someday = Date.parse('2011-08-02 23:59:59'); 
+   var formatsomeday = someday.format('yyyy-mm-dd');
+		</pre> 
+		<input type="button" value="alert tomorrow" onclick="alert(tomorrow)" />
+		<input type="button" value="alert someday" onclick="alert(someday)" />
+		<input type="button" value="alert someday" onclick="alert(formatsomeday)" />
+	</div>
+		<script>
+			var ts1 = TimeSpan(2, 2, 1, 23, 444);  
+			var ts2 = TimeSpan(1, 1, 23, 444);
+			var ts3 = TS('0:0:23.333');
+			var ts4 = TS(3, 444);
+			function playall() {
+				ts1.countDown(function(ts) {
+					setVal('ts1', ts.toString());
+				});
+				ts2.countDown(function(ts) {
+					setVal('ts2', ts.toString());
+				}, null, 2);
+				ts3.countDown(function(ts) {
+					setVal('ts3', ts3.toString());
+				}, function() {
+					alert('ts3 finished!');
+				}, 1);
+				ts4.countDown(function(ts) {
+					setVal('ts4', ts.toSecSpan().s);
+				}, function() {
+					alert('ts4 finished!');
+				}, 1);
+			}
+			function stopts1() {
+				ts1.stopCount();
+			}
+
+			function stopts2() {
+				ts2.stopCount();
+			}
+
+			function stopts3() {
+				ts3.stopCount();
+			} 
+			function stopts4() {
+				ts4.stopCount();
+			} 
+			function setVal(id, val) {
+				document.getElementById(id).setAttribute('value', val);
+			} 
+			setVal('ts1', ts1.toString());
+			setVal('ts2', ts2.toString());
+			setVal('ts3', ts3.toString());
+			setVal('ts4', ts4.toString());
+			/*date 增强部分 */
+			var now = new Date();
+			var tomorrow = now.add(TS(1, 0, 0, 0, 0));
+			var someday = Date.parse('2011-08-02 23:59:59'); 
+			var formatsomeday = someday.format('yyyy-mm-dd');
+		</script>
+	</body>
+</html>
