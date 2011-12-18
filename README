@@ -1,0 +1,2 @@
+  js tool , to enhance the origin Date obj and offer a jQuery-like , no Library based TimeSpan obj to manipulate timespan. You can see demo.html for more detail. It's easy!  
+  该工具用以增强js内置对象Date的功能，并提供了操作方式类似jQuery的TimeSpan对象用以处理时间间隔,该工具不依赖任何库实现. 详细用法可以参见Demo.html. 
